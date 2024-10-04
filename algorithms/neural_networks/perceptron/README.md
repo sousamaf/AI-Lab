@@ -28,7 +28,7 @@ O perceptron é um algoritmo de classificação binária que mapeia uma entrada 
    
    Execute o script:
    ```bash
-   python percepton_simples.py
+   python perceptron_simples.py
    ```
 3. **O que Esperar**:
 
