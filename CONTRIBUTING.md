@@ -73,4 +73,4 @@ Agradecemos seu interesse em contribuir para o AI-Lab!
 
 ---
 
-**Nota:** Se tiver alguma dúvida ou precisar de assistência, não hesite em abrir uma issue ou entrar em contato.
+**Nota:** Se tiver alguma dúvida ou precisar de assistência, não hesite em abrir uma issue ou entrar em contato via email marco.af at unitins.br.
