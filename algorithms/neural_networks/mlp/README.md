@@ -8,6 +8,7 @@ Este diretório contém implementações de **Redes Neurais Multicamadas (MLP)**
 - `mlp_torch_simples.py`: Implementação de uma MLP usando PyTorch.
 - `mlp_torch_iris.py`: Implementação de uma MLP usando PyTorch para o dataset Iris.
 - `mlp_torch_avaliacao.py`: Implementação de uma MLP usando PyTorch para o dataset Iris com métricas de avaliação.
+- `mlp_torch_validacao_cruzada.py`: Implementação de validação cruzada (k-fold) em uma MLP usando PyTorch.
 - `README.md`: Este arquivo com orientações.
 
 ## 📖 Descrição
@@ -36,9 +37,14 @@ As MLPs são compostas por uma camada de entrada, uma ou mais camadas ocultas e 
    python mlp_torch_iris.py
    ```
 
-5. **Execução com PyTorch - Dataset Iris Validação**:
+5. **Execução com PyTorch - Dataset Iris Avaliação**:
    ```bash
    python mlp_torch_avaliacao.py
+   ```
+
+6. **Execução com PyTorch - Dataset Iris Validação Cruzada (k-fold)**:
+   ```bash
+   python mlp_torch_validacao_cruzada.py
    ```
 
 🧪 Exemplos
