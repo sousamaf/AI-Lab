@@ -1,5 +1,5 @@
-import torch
-import torch.nn as nn
+import torch 
+import torch.nn as nn 
 import torch.optim as optim
 import torch.nn.functional as F
 
@@ -19,7 +19,7 @@ y = digits.target  # Rótulos (0 a 9)
 plt.figure(figsize=(8, 4))
 for index, (image, label) in enumerate(zip(X[:8], y[:8])):
     plt.subplot(2, 4, index + 1)
-    plt.imshow(image, cmap='gray')
+    plt.imshow(image, cmap='gray') 
     plt.title(f'Dígito: {label}')
     plt.axis('off')
 plt.show()
@@ -72,7 +72,7 @@ train_losses = []
 train_accuracies = []
 
 # Loop de treinamento
-num_epochs = 50
+num_epochs = 150
 for epoch in range(num_epochs):
     model.train()
     optimizer.zero_grad()
