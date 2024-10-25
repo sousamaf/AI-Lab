@@ -4,6 +4,9 @@ Este diretório contém implementações de modelos de **Aprendizado Profundo** 
 
 ## 📂 Conteúdo
 
+- `bce_test.py`: Demonstração de funcionamento da função BCELoss.
+- `simple_net_breast_cancer.py`: Exemplo de uma rede profunda simples trabalhando com dados textuais. 
+- `net_digits.py`: Exemplo de uma rede profunda simples trabalhando com imagens.
 - `cnn_example.py`: Exemplo de uma CNN para classificação de imagens.
 - `lstm_example.py`: Exemplo de uma LSTM para processamento de sequências.
 - `README.md`: Este arquivo com orientações.
