@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Carregar o dataset
 digits = load_digits()
@@ -123,4 +124,37 @@ plt.title('Acurácia durante o Treinamento')
 plt.legend()
 
 plt.tight_layout()
+plt.show()
+
+# Extraindo pesos da primeira camada para visualização
+weights_fc1 = model.fc1.weight.detach().numpy()
+
+# Criando o heatmap dos pesos da primeira camada
+plt.figure(figsize=(10, 8))
+sns.heatmap(weights_fc1, cmap="coolwarm", annot=False)
+plt.title("Heatmap dos Pesos - Primeira Camada (fc1)")
+plt.xlabel("Neurônios de Entrada")
+plt.ylabel("Neurônios de Saída")
+plt.show()
+
+# Extraindo pesos da segunda camada para visualização
+weights_fc2 = model.fc2.weight.detach().numpy()
+
+# Criando o heatmap dos pesos da segunda camada
+plt.figure(figsize=(10, 8))
+sns.heatmap(weights_fc2, cmap="coolwarm", annot=False)
+plt.title("Heatmap dos Pesos - Segunda Camada (fc2)")
+plt.xlabel("Neurônios de Entrada")
+plt.ylabel("Neurônios de Saída")
+plt.show()
+
+# Extraindo pesos da terceira camada para visualização
+weights_fc3 = model.fc3.weight.detach().numpy()
+
+# Criando o heatmap dos pesos da terceira camada
+plt.figure(figsize=(10, 8))
+sns.heatmap(weights_fc3, cmap="coolwarm", annot=False)
+plt.title("Heatmap dos Pesos - Terceira Camada (fc3)")
+plt.xlabel("Neurônios de Entrada")
+plt.ylabel("Neurônios de Saída")
 plt.show()
