@@ -37,9 +37,13 @@ class LayoutDisplayMixin:
             
             if recorte["tipo"] == "circular":
                 # Circles are rotation invariant.
-                circ = patches.Circle((recorte["x"] + recorte["r"], recorte["y"] + recorte["r"]),
-                                      recorte["r"], edgecolor='red', facecolor='none', lw=2)
+                circ = patches.Circle(
+                    (recorte["x"] + recorte["r"], recorte["y"] + recorte["r"]),
+                    recorte["r"],
+                    edgecolor='red', facecolor='none', lw=2
+                )
                 ax.add_patch(circ)
+            
             elif recorte["tipo"] == "triangular":
                 # Define original vertices for the triangle.
                 vertices = [
@@ -53,10 +57,39 @@ class LayoutDisplayMixin:
                 rotated_vertices = [rotate_point(v[0], v[1], angle, pivot[0], pivot[1]) for v in vertices]
                 triangle = patches.Polygon(rotated_vertices, edgecolor='green', facecolor='none', lw=2)
                 ax.add_patch(triangle)
-            else:  # Assume "retangular" (rectangle)
-                # Use the rotation angle in the Rectangle patch.
-                rect = patches.Rectangle((recorte["x"], recorte["y"]),
-                                         recorte["largura"], recorte["altura"],
-                                         angle=angle, edgecolor='blue', facecolor='none', lw=2)
+            
+            elif recorte["tipo"] == "diamante":
+                # Definimos o diamante como um quadrilátero cujos vértices estão
+                # nos pontos médio das bordas do bounding box (largura x altura).
+                # Exemplo: 
+                #    (x + w/2, y)       <- topo
+                #    (x + w,   y + h/2) <- direita
+                #    (x + w/2, y + h)   <- base
+                #    (x,       y + h/2) <- esquerda
+                w = recorte["largura"]
+                h = recorte["altura"]
+                x0, y0 = recorte["x"], recorte["y"]
+                
+                vertices = [
+                    [x0 + w/2, y0],         # Top
+                    [x0 + w,   y0 + h/2],   # Right
+                    [x0 + w/2, y0 + h],     # Bottom
+                    [x0,       y0 + h/2]    # Left
+                ]
+                # Pivô para rotação: centro do bounding box
+                pivot = (x0 + w/2, y0 + h/2)
+                
+                # Rotaciona cada vértice
+                rotated_vertices = [rotate_point(v[0], v[1], angle, pivot[0], pivot[1]) for v in vertices]
+                diamond = patches.Polygon(rotated_vertices, edgecolor='magenta', facecolor='none', lw=2)
+                ax.add_patch(diamond)
+            
+            else:  # Assume "retangular"
+                rect = patches.Rectangle(
+                    (recorte["x"], recorte["y"]),
+                    recorte["largura"], recorte["altura"],
+                    angle=angle, edgecolor='blue', facecolor='none', lw=2
+                )
                 ax.add_patch(rect)
+        
         plt.show()
