@@ -17,7 +17,7 @@ class AlgoritmoGenetico:
         self.aptidao_perc = [] #porcentagem
         self.numero_geracoes = numero_geracoes
         self.populacao_inicial()
-        self.grafico = plt.plot([],[])
+        self.melhor_aptidoes = []
     
     def populacao_inicial(self):
         print("Criando pupulação inicial!")
@@ -54,8 +54,8 @@ class AlgoritmoGenetico:
             
             self.avaliacao()
             q, apt = self.pegar_melhor_individuo()
-            # self.exibe_grafico_evolucao(geracao, apt)
-            # self.exibe_melhor_individuo(geracao)
+            self.melhor_aptidoes.append(apt)
+            self.exibe_melhor_individuo(geracao)
             
             self.pre_roleta()
             
@@ -91,7 +91,7 @@ class AlgoritmoGenetico:
                 self.mutacao(quem)
             
             self.substituicao()
-        # self.grafico.show()
+        self.plotar_progresso()
         self.exibe_melhor_individuo(geracao)
         
     def cruzamento_simples(self, pai1, pai2):
@@ -151,7 +151,6 @@ class AlgoritmoGenetico:
                 eleito[g] = self.POP[ord_aptidao[i][1]][g]
             self.POP_AUX.append(eleito)
             
-            
     def substituicao(self):
         self.POP = self.POP_AUX.copy()
         
@@ -187,6 +186,11 @@ class AlgoritmoGenetico:
         
         print("Geração: {} | Indivíduo: {} | Aptidão: {}".format(geracao, quem, apt))
 
-    def exibe_grafico_evolucao(self, g, apt):
-        self.grafico.plot(g, apt)
-        
+    def plotar_progresso(self):
+        plt.figure(figsize=(10, 5))
+        plt.plot(range(self.numero_geracoes), self.melhor_aptidoes, marker='o', linestyle='-', color='b')
+        plt.title('Progresso do Melhor Indivíduo ao Longo das Gerações')
+        plt.xlabel('Geração')
+        plt.ylabel('Aptidão do Melhor Indivíduo')
+        plt.grid(True)
+        plt.show()        
