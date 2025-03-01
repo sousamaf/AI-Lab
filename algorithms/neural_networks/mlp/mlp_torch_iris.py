@@ -5,6 +5,10 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+# Verificar se a GPU está disponível
+device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
+print(f'Usando o dispositivo: {device}')
+
 # Carregamento dos dados
 iris = datasets.load_iris()
 X = iris.data
@@ -13,8 +17,8 @@ y = iris.target
 # Pré-processamento
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
-X = torch.tensor(X, dtype=torch.float32)
-y = torch.tensor(y, dtype=torch.long)
+X = torch.tensor(X, dtype=torch.float32).to(device)
+y = torch.tensor(y, dtype=torch.long).to(device)
 
 # Divisão em treinamento e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -33,7 +37,7 @@ class IrisModel(nn.Module):
         return x
 
 # Instancia o modelo
-model = IrisModel()
+model = IrisModel().to(device)
 
 # Função de perda e otimizador
 criterion = nn.CrossEntropyLoss()

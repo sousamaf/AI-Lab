@@ -2,13 +2,16 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+# Verifica se o dispositivo MPS está disponível
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
 # Dados de entrada (função XOR)
 X = torch.tensor([
     [0, 0],
     [0, 1],
     [1, 0],
     [1, 1]
-], dtype=torch.float32)
+], dtype=torch.float32).to(device)
 
 # Saídas desejadas
 y = torch.tensor([
@@ -16,7 +19,7 @@ y = torch.tensor([
     [1],
     [1],
     [0]
-], dtype=torch.float32)
+], dtype=torch.float32).to(device)
 
 # Definição do modelo
 class XORModel(nn.Module):
@@ -27,15 +30,15 @@ class XORModel(nn.Module):
         self.layer2 = nn.Linear(2, 1)  # Camada de saída
 
     def forward(self, x):
-        x = torch.sigmoid(self.layer1(x))  # Ativação sigmoid na camada oculta
+        x = torch.relu(self.layer1(x))  # Ativação ReLU na camada oculta
         x = torch.sigmoid(self.layer2(x))  # Ativação sigmoid na camada de saída
         return x
 
-# Instancia o modelo
-model = XORModel()
+# Instancia o modelo e move para o dispositivo
+model = XORModel().to(device)
 
 # Define a função de perda e o otimizador
-criterion = nn.MSELoss() # Mean Squared Error
+criterion = nn.BCELoss()  # Binary Cross Entropy Loss
 optimizer = optim.SGD(model.parameters(), lr=0.1)
 
 # Treinamento do modelo
@@ -60,4 +63,4 @@ with torch.no_grad():
     predicted = (outputs > 0.5).float()
     print('\nResultados:')
     for i in range(len(X)):
-        print(f'Entrada: {X[i].numpy()}, Saída Prevista: {predicted[i].item()}')
+        print(f'Entrada: {X[i].cpu().numpy()}, Saída Prevista: {predicted[i].item()}')

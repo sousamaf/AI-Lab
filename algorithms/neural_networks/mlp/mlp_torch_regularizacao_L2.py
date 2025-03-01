@@ -7,6 +7,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, ConfusionMatrixDisplay
 
+# Verificar se a GPU está disponível
+device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
+print(f'Usando o dispositivo: {device}')
+
 # Carregamento dos dados
 iris = datasets.load_iris()
 X = iris.data
@@ -15,8 +19,8 @@ y = iris.target
 # Pré-processamento
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
-X = torch.tensor(X, dtype=torch.float32)
-y = torch.tensor(y, dtype=torch.long)
+X = torch.tensor(X, dtype=torch.float32).to(device)
+y = torch.tensor(y, dtype=torch.long).to(device)
 
 # Divisão em treinamento, validação e teste
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.4, random_state=33)
@@ -36,7 +40,7 @@ class IrisModel(nn.Module):
         return x
 
 # Instancia o modelo
-model = IrisModel()
+model = IrisModel().to(device)
 
 # Função de perda e otimizador com regularização L2
 criterion = nn.CrossEntropyLoss()

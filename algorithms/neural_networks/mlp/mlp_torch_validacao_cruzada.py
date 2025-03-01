@@ -8,6 +8,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, ConfusionMatrixDisplay
 import numpy as np
 
+# Verifica se o dispositivo MPS está disponível
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
 # Carregamento dos dados
 iris = datasets.load_iris()
 X = iris.data
@@ -16,8 +19,12 @@ y = iris.target
 # Pré-processamento
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
-X = torch.tensor(X, dtype=torch.float32)
-y = torch.tensor(y, dtype=torch.long)
+X = torch.tensor(X, dtype=torch.float32).to(device)
+y = torch.tensor(y, dtype=torch.long).to(device)
+
+# Mover os dados de volta para a CPU para o StratifiedKFold
+X_cpu = X.cpu().numpy()
+y_cpu = y.cpu().numpy()
 
 # Definição do modelo
 class IrisModel(nn.Module):
@@ -45,15 +52,15 @@ fold_recalls = []
 fold_f1_scores = []
 
 # Loop de Validação Cruzada
-for fold, (train_idx, val_idx) in enumerate(skf.split(X, y)):
+for fold, (train_idx, val_idx) in enumerate(skf.split(X_cpu, y_cpu)):
     print(f'\nFold {fold+1}/{k_folds}')
     
     # Divisão dos dados
     X_train, X_val = X[train_idx], X[val_idx]
     y_train, y_val = y[train_idx], y[val_idx]
     
-    # Instancia um novo modelo
-    model = IrisModel()
+    # Instancia um novo modelo e move para o dispositivo
+    model = IrisModel().to(device)
     
     # Função de perda e otimizador
     criterion = nn.CrossEntropyLoss()
