@@ -60,7 +60,7 @@ class NeuralNetwork:
             if epoch % 1000 == 0:
                 loss = np.mean(np.square(y - self.predict(X)))
                 print(f"Época {epoch}, Erro: {loss}")
-    
+
     def predict(self, X):
         y_pred = []
         for xi in X:
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     ])
     
     # Cria a rede neural com uma camada oculta de 2 neurônios
-    nn = NeuralNetwork(input_size=2, hidden_sizes=[2], output_size=1, learning_rate=0.1, epochs=100000)
+    nn = NeuralNetwork(input_size=2, hidden_sizes=[2], output_size=1, learning_rate=0.1, epochs=1000)
     
     # Treina a rede neural
     nn.train(X, y)
