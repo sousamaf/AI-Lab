@@ -50,7 +50,6 @@ Aqui você encontrará slides das aulas, imagens ilustrativas e textos de apoio 
 - [Estudo sobre Fuzzy Time Series](textos/Tese_STUDIESOFFUZZYTIMESERIESMODELS.pdf)
 - [Grandini (2020) – Métricas de Avaliação em ML](textos/grandini2020.pdf)
 - [Rainio (2024)](textos/rainio2024.pdf)
-- [IA com PyTorch – Livro D2L PT](textos/d2l-pt-pytorch-optimized.pdf)
 
 ---
 
