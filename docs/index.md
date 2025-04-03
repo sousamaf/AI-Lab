@@ -56,6 +56,6 @@ Aqui você encontrará slides das aulas, imagens ilustrativas e textos de apoio 
 ## Repositório com Códigos
 
 O código-fonte das aulas está disponível no repositório principal:  
-[github.com/seuusuario/AI-Lab](https://github.com/sousamaf/AI-Lab/)
+[github.com/sousamaf/AI-Lab](https://github.com/sousamaf/AI-Lab/)
 
 ---
