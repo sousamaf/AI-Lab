@@ -4,6 +4,9 @@ import torch.optim as optim
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix, classification_report
+import numpy as np
+
 
 # Verificar se a GPU está disponível
 device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
@@ -64,3 +67,15 @@ with torch.no_grad():
     _, predicted = torch.max(outputs.data, 1)
     accuracy = (predicted == y_test).sum().item() / y_test.size(0)
     print(f'\nAcurácia no conjunto de teste: {accuracy * 100:.2f}%')
+
+# 6. Matriz de confusão e métricas
+predicted_labels = predicted.cpu().numpy()
+true_labels = y_test.cpu().numpy()
+
+cm = confusion_matrix(true_labels, predicted_labels)
+report = classification_report(true_labels, predicted_labels, digits=4)
+
+print("\nMatriz de Confusão:")
+print(cm)
+print("\nRelatório de Classificação:")
+print(report)
