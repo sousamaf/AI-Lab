@@ -1,0 +1,27 @@
+# Core scientific stack used across the notebooks and scripts
+numpy
+pandas
+matplotlib
+scikit-learn
+seaborn
+joblib
+
+# Deep learning stack
+
+
+# NLP / transformers / fine-tuning notebooks
+transformers
+datasets
+peft
+
+# Optimization and fuzzy logic examples
+deap
+scikit-fuzzy
+
+# Dashboard and reporting utilities
+streamlit
+plotly
+
+# Notebook support
+jupyterlab
+ipykernel
